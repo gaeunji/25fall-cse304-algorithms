@@ -36,6 +36,11 @@ def partition(n: int, M: Matrix) -> Tuple[Matrix, Matrix, Matrix, Matrix]:
     for i in range(m):
         for j in range(m):
             # Complete the code here
+            # 4개의 부분 행렬 생성
+            m1[i][j] = M.matrix[i][j]
+            m2[i][j] = M.matrix[i][j+m]
+            m3[i][j] = M.matrix[i+m][j]
+            m4[i][j] = M.matrix[i+m][j+m]
 
     return Matrix(m1), Matrix(m2), Matrix(m3), Matrix(m4)
     
@@ -45,6 +50,11 @@ def combine(n: int, M1: Matrix, M2: Matrix, M3: Matrix, M4: Matrix) -> Matrix:
     for i in range(m):
         for j in range(m):
             # Complete the code here
+            # 4개의 부분 행렬 조합 -> 원래 행렬 생성
+            mat[i][j] = M1.matrix[i][j]
+            mat[i][j+m] = M2.matrix[i][j]
+            mat[i+m][j] = M3.matrix[i][j]
+            mat[i+m][j+m] = M4.matrix[i][j]
 
     return Matrix(mat)
    
@@ -58,6 +68,10 @@ def strassen(n: int, A: Matrix, B: Matrix) -> Matrix:
         B11, B12, B21, B22 = partition(n, B)
         
         # Complete the code here
+        C11 = strassen(n//2, A11, B11) + strassen(n//2, A12, B21)
+        C12 = strassen(n//2, A11, B12) + strassen(n//2, A12, B22)
+        C21 = strassen(n//2, A21, B11) + strassen(n//2, A22, B21)
+        C22 = strassen(n//2, A21, B12) + strassen(n//2, A22, B22)
 
         return combine(n, C11, C12, C21, C22)
 
