@@ -5,3 +5,7 @@ def bin(n: int, k: int) -> int:
         return 1
     else:
         # Complete the code here
+        # 파스칼의 삼각형 - 이항 계수 구하기
+        return bin(n-1, k-1) + bin(n-1, k)
+
+
