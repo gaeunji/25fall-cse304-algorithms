@@ -11,5 +11,16 @@ def prim(n: int, W: List[List[float]]) -> List[Tuple[int, int, float]]:
     for _ in range(n - 1):
         min = INF
         # Complete the code here
+        # 최소비용신장트리
+        for i in range(2, n + 1):
+            if 0 <= distance[i] < min:
+                min = distance[i]
+                vnear = i
+        F.append((nearest[vnear], vnear, W[nearest[vnear]][vnear]))
+        distance[vnear] = -1
+        for i in range(2, n + 1):
+            if W[i][vnear] < distance[i]:
+                distance[i] = W[i][vnear]
+                nearest[i] = vnear
 
     return F

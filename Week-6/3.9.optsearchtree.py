@@ -24,6 +24,12 @@ def minimum(i: int, j: int, A: list[list[int]], p: list[int]) -> tuple[int, int]
     minvalue, mink = INF, 0
     for k in range(i, j + 1):
         # Complete the code here
+        # 비용: 왼쪽 서브트리 비용 + 오른쪽 서브트리 비용 + 루트 노드 비용
+        cost = A[i][k - 1] + A[k + 1][j] + sum(p[i:j + 1])
+        if cost < minvalue:
+            minvalue = cost
+            mink = k
+        
         pass
     return minvalue, mink
 
@@ -38,6 +44,9 @@ def optsearchtree(n: int, p: list[int]) -> tuple[int, list[list[int]], list[list
     for diagonal in range(1, n):
         # Complete the code here
         # Tip. Implement minimum() and use it
+        for i in range(1, n - diagonal + 1):
+            j = i + diagonal
+            A[i][j], R[i][j] = minimum(i, j, A, p)
         pass
 
     return A[1][n], A, R
@@ -48,6 +57,9 @@ def tree(i: int, j: int, K: list[int], R: list[list[int]]) -> 'Node | None':
         return None
     else:
         # Complete the code here
+        p = Node(k)
+        p.left = tree(i, k - 1, K, R)
+        p.right = tree(k + 1, j, K, R)
         return p
 
 INF: float = float("inf")
