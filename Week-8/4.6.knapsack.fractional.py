@@ -17,6 +17,7 @@ def knapsack(n: int, W: float, w: List[float], p: List[float]) -> float:
     total_weight: float = 0.0
 
     # Complete the code here
+
     while total_weight < W and len(heap) > 0:
         item = heappop(heap)
         if total_weight + item[1].weight <= W:
